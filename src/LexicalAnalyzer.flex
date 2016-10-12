@@ -1,17 +1,21 @@
 %%
-%class main
+%class LexicalAnalyzer
 %unicode
 %line
 %column
 %standalone
 
 %{
-	public void idle()
+	public void token(LexicalUnit unit)
 	{
+		switch (unit)
+		{
+			case PROGRAM: System.out.println("[We have a PROGRAM token]"); break;
+		}
 	}
 %}
 
-rule = [0-9]+
+token_problem = "PROGRAM"
 
 %%
-{rule} {idle();}
+{token_problem} {token(LexicalUnit.PROGRAM);}
