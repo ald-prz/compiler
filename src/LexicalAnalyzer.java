@@ -30,8 +30,12 @@ class LexicalAnalyzer {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\101\0\1\5\5\0\1\4\5\0\1\6\1\0\1\3\1\1\1\0"+
-    "\1\2\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffbd\0";
+    "\50\0\1\21\1\22\1\25\1\24\1\17\1\23\1\0\1\26\12\2"+
+    "\3\0\1\20\3\0\1\14\2\1\1\16\1\7\1\27\1\10\1\1"+
+    "\1\4\3\1\1\15\1\5\1\13\1\12\1\1\1\11\1\1\1\6"+
+    "\6\1\6\0\1\14\2\1\1\16\1\7\1\27\1\10\1\1\1\4"+
+    "\3\1\1\15\1\5\1\13\1\12\1\1\1\11\1\1\1\6\6\1"+
+    "\265\0\2\3\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\ufede\0";
 
   /** 
    * Translates characters to character classes
@@ -44,10 +48,13 @@ class LexicalAnalyzer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\2\1\5\0\1\2";
+    "\1\0\1\1\1\2\1\3\1\1\3\2\1\4\1\5"+
+    "\1\6\1\7\1\10\1\11\1\12\1\13\1\0\1\14"+
+    "\1\2\1\14\2\2\1\0\1\2\1\15\1\2\1\0"+
+    "\2\2\1\0\2\2\1\0\2\2\2\16\1\17";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[9];
+    int [] result = new int[38];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -72,11 +79,14 @@ class LexicalAnalyzer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\7\0\16\0\25\0\34\0\43\0\52\0\61"+
-    "\0\7";
+    "\0\0\0\30\0\60\0\110\0\140\0\170\0\220\0\250"+
+    "\0\30\0\30\0\30\0\30\0\30\0\30\0\30\0\30"+
+    "\0\300\0\30\0\330\0\60\0\360\0\u0108\0\u0120\0\u0138"+
+    "\0\60\0\u0150\0\u0168\0\u0180\0\u0198\0\u01b0\0\u01c8\0\u01e0"+
+    "\0\u01f8\0\u0210\0\u0228\0\30\0\60\0\60";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[9];
+    int [] result = new int[38];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -99,11 +109,28 @@ class LexicalAnalyzer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\5\2\11\0\1\4\7\0\1\5\7\0"+
-    "\1\6\4\0\1\7\11\0\1\10\7\0\1\11";
+    "\1\2\1\3\1\4\1\5\1\6\2\3\1\7\2\3"+
+    "\1\10\4\3\1\11\1\12\1\13\1\14\1\15\1\16"+
+    "\1\17\1\20\1\3\31\0\2\3\1\0\13\3\10\0"+
+    "\1\3\2\0\1\4\32\0\1\21\21\0\1\22\1\0"+
+    "\2\3\1\0\1\3\1\23\11\3\10\0\1\24\1\0"+
+    "\2\3\1\0\1\3\1\25\11\3\10\0\1\3\1\0"+
+    "\2\3\1\0\5\3\1\26\5\3\10\0\1\3\6\0"+
+    "\1\27\22\0\2\3\1\0\2\3\1\30\10\3\10\0"+
+    "\1\3\1\0\2\3\1\0\12\3\1\31\10\0\1\3"+
+    "\1\0\2\3\1\0\7\3\1\32\3\3\10\0\1\3"+
+    "\7\0\1\33\21\0\2\3\1\0\3\3\1\34\7\3"+
+    "\10\0\1\3\1\0\2\3\1\0\4\3\1\35\6\3"+
+    "\10\0\1\3\10\0\1\36\20\0\2\3\1\0\4\3"+
+    "\1\37\6\3\10\0\1\3\1\0\2\3\1\0\5\3"+
+    "\1\40\5\3\10\0\1\3\7\0\1\41\21\0\2\3"+
+    "\1\0\3\3\1\42\7\3\10\0\1\3\1\0\2\3"+
+    "\1\0\10\3\1\43\2\3\10\0\1\3\11\0\1\44"+
+    "\17\0\2\3\1\0\5\3\1\45\5\3\10\0\1\3"+
+    "\1\0\2\3\1\0\11\3\1\46\1\3\10\0\1\3";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[56];
+    int [] result = new int[576];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -141,10 +168,12 @@ class LexicalAnalyzer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\1\1\5\0\1\11";
+    "\1\0\1\11\6\1\10\11\1\0\1\11\4\1\1\0"+
+    "\3\1\1\0\2\1\1\0\2\1\1\0\2\1\1\11"+
+    "\2\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[9];
+    int [] result = new int[38];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -220,12 +249,10 @@ class LexicalAnalyzer {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-	public void token(LexicalUnit unit)
+	public void token(LexicalUnit unit, int line, int column, String match)
 	{
-		switch (unit)
-		{
-			case PROGRAM: System.out.println("[We have a PROGRAM token]"); break;
-		}
+		Symbol s = new Symbol(unit, line, column, match);
+		System.out.printf("%s\n", s.toString());
 	}
 
 
@@ -249,7 +276,7 @@ class LexicalAnalyzer {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 56) {
+    while (i < 138) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -602,11 +629,63 @@ class LexicalAnalyzer {
           case 1: 
             { System.out.print(yytext());
             }
-          case 3: break;
+          case 16: break;
           case 2: 
-            { token(LexicalUnit.PROGRAM);
+            { token(LexicalUnit.VARNAME, yyline, yycolumn, yytext());
             }
-          case 4: break;
+          case 17: break;
+          case 3: 
+            { token(LexicalUnit.NUMBER, yyline, yycolumn, yytext());
+            }
+          case 18: break;
+          case 4: 
+            { token(LexicalUnit.COMMA, yyline, yycolumn, yytext());
+            }
+          case 19: break;
+          case 5: 
+            { token(LexicalUnit.EQUAL, yyline, yycolumn, yytext());
+            }
+          case 20: break;
+          case 6: 
+            { token(LexicalUnit.LEFT_PARENTHESIS, yyline, yycolumn, yytext());
+            }
+          case 21: break;
+          case 7: 
+            { token(LexicalUnit.RIGHT_PARENTHESIS, yyline, yycolumn, yytext());
+            }
+          case 22: break;
+          case 8: 
+            { token(LexicalUnit.MINUS, yyline, yycolumn, yytext());
+            }
+          case 23: break;
+          case 9: 
+            { token(LexicalUnit.PLUS, yyline, yycolumn, yytext());
+            }
+          case 24: break;
+          case 10: 
+            { token(LexicalUnit.TIMES, yyline, yycolumn, yytext());
+            }
+          case 25: break;
+          case 11: 
+            { token(LexicalUnit.DIVIDE, yyline, yycolumn, yytext());
+            }
+          case 26: break;
+          case 12: 
+            { token(LexicalUnit.IF, yyline, yycolumn, yytext());
+            }
+          case 27: break;
+          case 13: 
+            { token(LexicalUnit.END, yyline, yycolumn, yytext());
+            }
+          case 28: break;
+          case 14: 
+            { token(LexicalUnit.INTEGER, yyline, yycolumn, yytext());
+            }
+          case 29: break;
+          case 15: 
+            { token(LexicalUnit.PROGRAM, yyline, yycolumn, yytext());
+            }
+          case 30: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
