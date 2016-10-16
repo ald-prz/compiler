@@ -7,11 +7,20 @@
 %caseless
 %ignorecase
 
+%init{
+	preprocessor = new Preprocessor();
+%init}
+
+%eof{
+	preprocessor.OutputIdentifiers();
+%eof}
+
 %{
+	Preprocessor preprocessor;
+
 	public void token(LexicalUnit unit, int line, int column, String match)
 	{
-		Symbol s = new Symbol(unit, line, column, match);
-		System.out.printf("%s\n", s.toString());
+		preprocessor.NewToken(unit, line, column, match);
 	}
 	
 	public void idle()
@@ -19,11 +28,12 @@
 	}
 %}
 
-comment = ("c "|"C "|"* "|"d "|"D "|"!")(.*)(\r|\n|\r\n)
+endline = \r|\n|\r\n   // do not remove \r\n, otherwise it will consider 2 endlines per one
+comment = {endline} ("c "|"C "|"* "|"d "|"D "|"!")(.*)
 varname = ([a-z]|[A-Z])([a-z]|[A-Z]|[0-9])*
 integer = "integer"
 number = [0-9]+
-problem = "program"
+problem = "program "{varname}
 end = "end"
 comma = ","
 equal = "="
@@ -50,8 +60,7 @@ do = "do"
 enddo = "enddo"
 print = "print*,"
 read = "read*,"
-endline = \r|\n|\r\n   // do not remove \r\n, otherwise it will consider 2 endlines per one
-
+space = " "+
 
 %%
 
@@ -86,5 +95,9 @@ endline = \r|\n|\r\n   // do not remove \r\n, otherwise it will consider 2 endli
 {print} {token(LexicalUnit.PRINT, yyline, yycolumn, yytext());}
 {read} {token(LexicalUnit.READ, yyline, yycolumn, yytext());}
 {endline} {token(LexicalUnit.ENDLINE, yyline, yycolumn, yytext());}
-{varname} {token(LexicalUnit.VARNAME, yyline, yycolumn, yytext());} // keep it in the bottom
-{comment} {idle();} // also keep in the bottom since it is least priority check (could be confused with multiplication)
+
+
+// keep these ones in the bottom to ensure lower priority
+{varname} {token(LexicalUnit.VARNAME, yyline, yycolumn, yytext());} 
+{comment} {idle();} 
+{space} {idle();}
