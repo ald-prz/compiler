@@ -28,12 +28,13 @@
 	}
 %}
 
-endline = \r|\n|\r\n   // do not remove \r\n, otherwise it will consider 2 endlines per one
+single_endline = \r|\n|\r\n
+endline = {single_endline}+   
 comment = {endline} ("c "|"C "|"* "|"d "|"D "|"!")(.*)
 varname = ([a-z]|[A-Z])([a-z]|[A-Z]|[0-9])*
 integer = "integer"
 number = [0-9]+
-problem = "program "{varname}
+problem = "program"
 end = "end"
 comma = ","
 equal = "="
@@ -58,8 +59,8 @@ smaller = ".lt."
 different = ".ne."
 do = "do"
 enddo = "enddo"
-print = "print*,"
-read = "read*,"
+print = "print*"
+read = "read*"
 space = " "+
 
 %%

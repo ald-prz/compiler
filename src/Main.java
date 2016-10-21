@@ -9,11 +9,7 @@ public class Main {
 	
 	
 	TO-ASK
-	1) When toString() endline Symbol in output it is represented by 2 lines. Should we remove it?
-	2) In pdf example identifiers are not sorted.
-	3) Identifiers tabulation output???
-	4) Do we consider ProgName a variable name?
-	5) Do we remove redundant endlines?
+	1) Symbol.java style fix ok?
 	*/
 	
 	public static void main(String[] args) {
