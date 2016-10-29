@@ -36,7 +36,6 @@ space = " "+
 %%
 
 <YYINITIAL> {
-	"INTEGER" {token(LexicalUnit.INTEGER, yyline, yycolumn, yytext());}
 	{number} {token(LexicalUnit.NUMBER, yyline, yycolumn, yytext());}
 	{endline} {token(LexicalUnit.ENDLINE, yyline, yycolumn, yytext());}
 	
@@ -61,7 +60,7 @@ space = " "+
 	"ENDIF" {token(LexicalUnit.ENDIF, yyline, yycolumn, yytext());}
 	"ELSE" {token(LexicalUnit.ELSE, yyline, yycolumn, yytext());}
 	
-	
+	// Boolean logic
 	"NOT" {token(LexicalUnit.NOT, yyline, yycolumn, yytext());}
 	"AND" {token(LexicalUnit.AND, yyline, yycolumn, yytext());}
 	"OR" {token(LexicalUnit.OR, yyline, yycolumn, yytext());}
@@ -75,6 +74,7 @@ space = " "+
 	".NE." {token(LexicalUnit.DIFFERENT, yyline, yycolumn, yytext());}
 	
 	// Remaining Keywords
+	"INTEGER" {token(LexicalUnit.INTEGER, yyline, yycolumn, yytext());}
 	"DO" {token(LexicalUnit.DO, yyline, yycolumn, yytext());}
 	"ENDDO" {token(LexicalUnit.ENDDO, yyline, yycolumn, yytext());}
 	"PRINT" {token(LexicalUnit.PRINT, yyline, yycolumn, yytext());}
