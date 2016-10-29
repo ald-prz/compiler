@@ -18,13 +18,8 @@
 %{
 	Preprocessor preprocessor;
 
-	public void token(LexicalUnit unit, int line, int column, String match)
-	{
+	public void token(LexicalUnit unit, int line, int column, String match) {
 		preprocessor.NewToken(unit, line, column, match);
-	}
-	
-	public void idle()
-	{
 	}
 %}
 
