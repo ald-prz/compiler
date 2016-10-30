@@ -20,7 +20,7 @@ public class Preprocessor {
 	 * @param column Column where the token was found.
 	 * @param match String that was matched.
 	 */
-	public void NewToken(LexicalUnit unit, int line, int column, String match) {
+	public void newToken(LexicalUnit unit, int line, int column, String match) {
 		if (unit == LexicalUnit.ENDLINE)
 			match = "                  ";
 
@@ -51,7 +51,7 @@ public class Preprocessor {
 	/**
 	 * Outputs the list of identifiers and the line where they were found.
 	 */
-	public void OutputIdentifiers() {
+	public void outputIdentifiers() {
 
 		// Sort varnames alphabetically
 

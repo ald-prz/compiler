@@ -12,14 +12,14 @@
 %init}
 
 %eof{
-	preprocessor.OutputIdentifiers();
+	preprocessor.outputIdentifiers();
 %eof}
 
 %{
 	Preprocessor preprocessor;
 
 	public void token(LexicalUnit unit, int line, int column, String match) {
-		preprocessor.NewToken(unit, line, column, match);
+		preprocessor.newToken(unit, line, column, match);
 	}
 %}
 

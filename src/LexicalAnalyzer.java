@@ -328,7 +328,7 @@ class LexicalAnalyzer {
 	Preprocessor preprocessor;
 
 	public void token(LexicalUnit unit, int line, int column, String match) {
-		preprocessor.NewToken(unit, line, column, match);
+		preprocessor.newToken(unit, line, column, match);
 	}
 
 
@@ -563,7 +563,7 @@ class LexicalAnalyzer {
   private void zzDoEOF() {
     if (!zzEOFDone) {
       zzEOFDone = true;
-    	preprocessor.OutputIdentifiers();
+    	preprocessor.outputIdentifiers();
 
     }
   }
