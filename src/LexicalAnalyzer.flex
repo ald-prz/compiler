@@ -18,8 +18,8 @@
 %{
 	Preprocessor preprocessor;
 
-	public void token(LexicalUnit unit, int line, int column, String match) {
-		preprocessor.newToken(unit, line, column, match);
+	public Symbol token(LexicalUnit unit, int line, int column, String match) {
+		return preprocessor.newToken(unit, line, column, match);
 	}
 %}
 
@@ -30,7 +30,6 @@ varname = ([a-zA-Z])([a-zA-Z]|[0-9])*
 number = [0-9]+
 space = " "+
 
-// TODO Add other states.. maybe ?
 %state PROGRAM
 
 %%
@@ -39,7 +38,7 @@ space = " "+
 	{number} {token(LexicalUnit.NUMBER, yyline, yycolumn, yytext());}
 	{endline} {token(LexicalUnit.ENDLINE, yyline, yycolumn, yytext());}
 	
-	"PROGRAM" {token(LexicalUnit.PROGRAM, yyline, yycolumn, yytext());}
+	"PROGRAM" {token(LexicalUnit.PROGRAM, yyline, yycolumn, yytext()); yybegin(PROGRAM);}
 	"END" {token(LexicalUnit.END, yyline, yycolumn, yytext());}
 	
 	// Various elements
@@ -81,12 +80,13 @@ space = " "+
 	"READ*" {token(LexicalUnit.READ, yyline, yycolumn, yytext());}
 }
 
-/*<PROGRAM> {
-	// We ignore the program name
-	{varname} { yybegin(YYINITIAL); }
-}*/
+<PROGRAM> {
+	// Add ProgName only to the symbols list
+	{varname} {token(LexicalUnit.VARNAME, yyline, yycolumn, yytext()); yybegin(YYINITIAL);}
+}
 
 // Keep these ones in the bottom to ensure lower priority
-{varname} {token(LexicalUnit.VARNAME, yyline, yycolumn, yytext());} 
+// Add varname to both the symbols and varnames list
+{varname} {preprocessor.newVariable(token(LexicalUnit.VARNAME, yyline, yycolumn, yytext()));} 
 {comment} { } 
 {space} { }

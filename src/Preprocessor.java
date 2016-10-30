@@ -13,39 +13,51 @@ public class Preprocessor {
 	}
 
 	/**
-	 * Creates a new Symbol from the recognized token and adds it to the list of symbols and variable names if needed.
+	 * Creates a new Symbol from the recognized token and adds it to the list of
+	 * symbols.
 	 * 
-	 * @param unit The recognized unit.
-	 * @param line Line where the token was found.
-	 * @param column Column where the token was found.
-	 * @param match String that was matched.
+	 * @param unit
+	 *            The recognized unit.
+	 * @param line
+	 *            Line where the token was found.
+	 * @param column
+	 *            Column where the token was found.
+	 * @param match
+	 *            String that was matched.
 	 */
-	public void newToken(LexicalUnit unit, int line, int column, String match) {
+	public Symbol newToken(LexicalUnit unit, int line, int column, String match) {
 		if (unit == LexicalUnit.ENDLINE)
 			match = "                  ";
 
 		Symbol s = new Symbol(unit, line, column, match);
 
-		if (s.getType() == LexicalUnit.VARNAME) {
-
-			// Check if the variable name is already in the list
-
-			boolean alreadyHave = false;
-
-			for (int i = 0; i < varnames.size(); i++) {
-				if (varnames.get(i).getValue().toString().equals(match)) {
-					alreadyHave = true;
-					break;
-				}
-			}
-
-			if (!alreadyHave)
-				varnames.add(s);
-		}
-
 		symbols.add(s);
 
 		System.out.printf("%s\n", s.toString());
+
+		return s;
+	}
+
+	/**
+	 * Adds the symbol to the varnames list if not already present.
+	 * 
+	 * @param s
+	 *            The Symbol to add.
+	 */
+	public void newVariable(Symbol s) {
+		// Check if the variable name is already in the list
+
+		boolean alreadyHave = false;
+
+		for (int i = 0; i < varnames.size(); i++) {
+			if (varnames.get(i).getValue().toString().equals(s.getValue())) {
+				alreadyHave = true;
+				break;
+			}
+		}
+
+		if (!alreadyHave)
+			varnames.add(s);
 	}
 
 	/**
