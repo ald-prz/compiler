@@ -3,7 +3,7 @@ program comprehensivetest
 
 
 
-integer alpha1, bravo2, c
+integer alpha1, bravo2, c, i, something
 
 do i am a comment
 
