@@ -24,11 +24,12 @@
 %}
 
 single_endline = \r|\n|\r\n
-endline = {single_endline}+   
+space = " "+
+endline = ( {single_endline}+ ({space}+ {single_endline})* )+
 comment = {endline} ("c"|"C"|"*"|"d"|"D"|"!")(.*)
 varname = ([a-zA-Z])([a-zA-Z]|[0-9])*
 number = [0-9]+
-space = " "+
+
 
 %state PROGRAM
 
