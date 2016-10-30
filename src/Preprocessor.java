@@ -34,7 +34,7 @@ public class Preprocessor {
 
 		symbols.add(s);
 
-		System.out.printf("%s\n", s.toString());
+		System.out.println(s.toString());
 
 		return s;
 	}
@@ -76,9 +76,9 @@ public class Preprocessor {
 					varnames.set(j + 1, change);
 				}
 
-		System.out.printf("Identifiers\n");
+		System.out.println("Identifiers");
 
 		for (int i = 0; i < varnames.size(); i++)
-			System.out.printf("%s\t%d\n", varnames.get(i).getValue().toString(), varnames.get(i).getLine());
+			System.out.println(varnames.get(i).getValue().toString() + "\t" + varnames.get(i).getLine());
 	}
 }
