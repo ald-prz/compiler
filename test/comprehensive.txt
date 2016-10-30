@@ -1,0 +1,23 @@
+program comprehensivetest
+
+
+
+
+integer alpha1, bravo2, c
+
+do i am a comment
+
+alpha1 = 1
+bravo2 = 2
+ c = alpha1 + bravo2
+ 
+print*, c
+
+read*, something
+
+if (.NOT. alpha1 .eQ. 3) tHEN
+   do i = 1, 5
+      pRINT*, 1, 2, 3
+   
+
+end
