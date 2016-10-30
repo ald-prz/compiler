@@ -25,7 +25,7 @@
 
 single_endline = \r|\n|\r\n
 endline = {single_endline}+   
-comment = {endline} ("c "|"C "|"* "|"d "|"D "|"!")(.*)
+comment = {endline} ("c"|"C"|"*"|"d"|"D"|"!")(.*)
 varname = ([a-zA-Z])([a-zA-Z]|[0-9])*
 number = [0-9]+
 space = " "+
@@ -60,9 +60,9 @@ space = " "+
 	"ELSE" {token(LexicalUnit.ELSE, yyline, yycolumn, yytext());}
 	
 	// Boolean logic
-	"NOT" {token(LexicalUnit.NOT, yyline, yycolumn, yytext());}
-	"AND" {token(LexicalUnit.AND, yyline, yycolumn, yytext());}
-	"OR" {token(LexicalUnit.OR, yyline, yycolumn, yytext());}
+	".NOT." {token(LexicalUnit.NOT, yyline, yycolumn, yytext());}
+	".AND." {token(LexicalUnit.AND, yyline, yycolumn, yytext());}
+	".OR." {token(LexicalUnit.OR, yyline, yycolumn, yytext());}
 	
 	// Comparators
 	".EQ." {token(LexicalUnit.EQUAL_COMPARE, yyline, yycolumn, yytext());}
