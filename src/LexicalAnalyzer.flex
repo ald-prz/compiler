@@ -82,7 +82,8 @@ space = " "+
 
 <PROGRAM> {
 	// Add ProgName only to the symbols list
-	{varname} {token(LexicalUnit.VARNAME, yyline, yycolumn, yytext()); yybegin(YYINITIAL);}
+	{varname} {token(LexicalUnit.VARNAME, yyline, yycolumn, yytext());}
+	{endline} {token(LexicalUnit.ENDLINE, yyline, yycolumn, yytext()); yybegin(YYINITIAL);}
 }
 
 // Keep these ones in the bottom to ensure lower priority
