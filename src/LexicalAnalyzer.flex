@@ -76,7 +76,7 @@ space = " "+
 	"INTEGER" {token(LexicalUnit.INTEGER, yyline, yycolumn, yytext());}
 	"DO" {token(LexicalUnit.DO, yyline, yycolumn, yytext());}
 	"ENDDO" {token(LexicalUnit.ENDDO, yyline, yycolumn, yytext());}
-	"PRINT" {token(LexicalUnit.PRINT, yyline, yycolumn, yytext());}
+	"PRINT*" {token(LexicalUnit.PRINT, yyline, yycolumn, yytext());}
 	"READ*" {token(LexicalUnit.READ, yyline, yycolumn, yytext());}
 }
 
