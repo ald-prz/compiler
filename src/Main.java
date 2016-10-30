@@ -3,13 +3,9 @@ public class Main {
 	/*
 	To compile:
 	1) Run build_windows.bat or equivalent linux script.
-	2) In Eclipse go to LexicalAnalyzer.java so IDE could refresh its link.
+	2) In Eclipse, press F5 or Refresh on the project in the Package Explorer.
 	3) Switch to Main.java scope.
 	4) Press Run.
-	
-	
-	TO-ASK
-	1) Symbol.java style fix ok?
 	*/
 	
 	public static void main(String[] args) {
