@@ -39,7 +39,7 @@ space = " "+
 	{number} {token(LexicalUnit.NUMBER, yyline, yycolumn, yytext());}
 	{endline} {token(LexicalUnit.ENDLINE, yyline, yycolumn, yytext());}
 	
-	"PROGRAM" {token(LexicalUnit.PROGRAM, yyline, yycolumn, yytext()); yybegin(PROGRAM);}
+	"PROGRAM" {token(LexicalUnit.PROGRAM, yyline, yycolumn, yytext());}
 	"END" {token(LexicalUnit.END, yyline, yycolumn, yytext());}
 	
 	// Various elements
@@ -70,7 +70,7 @@ space = " "+
 	".GE." {token(LexicalUnit.GREATER_EQUAL, yyline, yycolumn, yytext());}
 	".GT." {token(LexicalUnit.GREATER, yyline, yycolumn, yytext());}
 	".LE." {token(LexicalUnit.SMALLER_EQUAL, yyline, yycolumn, yytext());}
-	".LE." {token(LexicalUnit.SMALLER, yyline, yycolumn, yytext());}
+	".LT." {token(LexicalUnit.SMALLER, yyline, yycolumn, yytext());}
 	".NE." {token(LexicalUnit.DIFFERENT, yyline, yycolumn, yytext());}
 	
 	// Remaining Keywords
@@ -81,10 +81,10 @@ space = " "+
 	"READ*" {token(LexicalUnit.READ, yyline, yycolumn, yytext());}
 }
 
-<PROGRAM> {
+/*<PROGRAM> {
 	// We ignore the program name
 	{varname} { yybegin(YYINITIAL); }
-}
+}*/
 
 // Keep these ones in the bottom to ensure lower priority
 {varname} {token(LexicalUnit.VARNAME, yyline, yycolumn, yytext());} 
