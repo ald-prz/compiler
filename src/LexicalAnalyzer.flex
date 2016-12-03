@@ -12,7 +12,7 @@
 %init}
 
 %eof{
-	preprocessor.outputIdentifiers();
+	preprocessor.parse();
 %eof}
 
 %{

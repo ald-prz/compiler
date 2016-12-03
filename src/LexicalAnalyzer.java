@@ -562,7 +562,7 @@ class LexicalAnalyzer {
   private void zzDoEOF() {
     if (!zzEOFDone) {
       zzEOFDone = true;
-    	preprocessor.outputIdentifiers();
+    	preprocessor.parse();
 
     }
   }

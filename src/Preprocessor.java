@@ -64,21 +64,30 @@ public class Preprocessor {
 	/**
 	 * Outputs the list of identifiers and the line where they were found.
 	 */
-	public void outputIdentifiers() {
-
+	public void parse() {
+		outputTokens();
+		
+		Parser parser = new Parser();
+		
+		parser.parse(symbols);
+		
+	}
+	
+	protected void outputTokens()
+	{
 		// Sort varnames alphabetically
 
-		for (int i = varnames.size() - 2; i >= 0; i--)
-			for (int j = 0; j <= i; j++)
-				if (varnames.get(j).getValue().toString().compareTo(varnames.get(j + 1).getValue().toString()) > 0) {
-					Symbol change = varnames.get(j);
-					varnames.set(j, varnames.get(j + 1));
-					varnames.set(j + 1, change);
-				}
+				for (int i = varnames.size() - 2; i >= 0; i--)
+					for (int j = 0; j <= i; j++)
+						if (varnames.get(j).getValue().toString().compareTo(varnames.get(j + 1).getValue().toString()) > 0) {
+							Symbol change = varnames.get(j);
+							varnames.set(j, varnames.get(j + 1));
+							varnames.set(j + 1, change);
+						}
 
-		System.out.println("Identifiers");
+				System.out.println("Identifiers");
 
-		for (int i = 0; i < varnames.size(); i++)
-			System.out.println(varnames.get(i).getValue().toString() + "\t" + varnames.get(i).getLine());
+				for (int i = 0; i < varnames.size(); i++)
+					System.out.println(varnames.get(i).getValue().toString() + "\t" + varnames.get(i).getLine());
 	}
 }
