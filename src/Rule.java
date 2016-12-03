@@ -10,10 +10,8 @@ public class Rule {
 	 */
 	public void addTkn(LexicalUnit unit)
 	{
-		if (this.right == null)
-			this.right = new ArrayList();
-		
-		this.right.add(new ElementToken(new Symbol(unit, 0, 0, null)));
+		initRightSide();		
+		this.right.add(new ElementToken(unit));
 	}
 	
 	/*
@@ -21,9 +19,14 @@ public class Rule {
 	 */
 	public void addVar(EnumVariable variable)
 	{
+		initRightSide();		
+		this.right.add(new ElementVariable(variable));
+	}
+	
+	
+	public void initRightSide()
+	{
 		if (this.right == null)
 			this.right = new ArrayList();
-		
-		this.right.add(new ElementVariable(variable));
 	}
 }

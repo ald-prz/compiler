@@ -24,4 +24,24 @@ public class ElementToken extends Element {
 		else
 			this.isEndingToken = true;
 	}
+	
+	public ElementToken(LexicalUnit unit)
+	{
+		if (unit != null)
+		{
+			this.symbol = new Symbol(unit, 0, 0, null);
+			this.isEndingToken = false;
+		}
+		else
+			this.isEndingToken = true;
+	}
+	
+	@Override
+    public String toString(){
+        if (this.isEndingToken == true)
+        	return "$";
+        else
+        	return symbol.getType().toString();
+ 
+    }
 }

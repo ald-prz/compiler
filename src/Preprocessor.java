@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Preprocessor {
-	protected List<Symbol> symbols;
-	protected List<Symbol> varnames;
+	protected ArrayList<Symbol> symbols;
+	protected ArrayList<Symbol> varnames;
 
 	/**
 	 * Constructs a new Preprocessor and initializes all lists to empty ones.

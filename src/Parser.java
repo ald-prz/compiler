@@ -6,17 +6,46 @@ public class Parser {
 	protected int[][] actionTable;
 	protected ArrayList<Rule> rules;
 	
-	public void parse(List<Symbol> symbol)
+	public void parse(ArrayList<Symbol> symbol)
 	{		
 		initializeActionTable();
 		initializeRules();
 		
+		Stack stack = new Stack();
+		stack.push(new ElementVariable(EnumVariable.All));
 		
+		while (true)
+		{
+			Element element = (Element) stack.pop();
+			
+			if (element instanceof ElementVariable)
+			{
+				ElementVariable variable = (ElementVariable) element;
+				
+				int rule = actionTable[variable.getVariable().ordinal()][symbol.get(0).getType().ordinal()];
+				
+				if (rule != -1)
+				{
+					for (int i = rules.get(rule).right.size() - 1; i >= 0; i--)
+						stack.push(rules.get(rule).right.get(i));
+				}
+				else
+				{
+					
+				}
+				
+				int remove = -1;
+			}
+			else
+			{
+				
+			}
+		}
 	}
 	
 	protected void initializeRules()
 	{
-		ArrayList<Rule> rules = new ArrayList<Rule>();
+		rules = new ArrayList<Rule>();
 		
 		Rule rule = new Rule();
 		rule.left = EnumVariable.All;
@@ -25,9 +54,85 @@ public class Parser {
 		rules.add(rule);
 		
 		rule = new Rule();
-		rule.left = EnumVariable.All;
+		rule.left = EnumVariable.Program;
 		rule.addTkn(LexicalUnit.PROGRAM);
 		rule.addTkn(LexicalUnit.VARNAME);
+		rule.addTkn(LexicalUnit.ENDLINE);
+		rule.addVar(EnumVariable.Vars);
+		rule.addVar(EnumVariable.Code);
+		rule.addTkn(LexicalUnit.END);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Vars;
+		rule.addTkn(LexicalUnit.INTEGER);
+		rule.addVar(EnumVariable.VarList);
+		rule.addTkn(LexicalUnit.ENDLINE);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Vars;
+		rule.initRightSide();
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.VarList;
+		rule.addTkn(LexicalUnit.VARNAME);
+		rule.addTkn(LexicalUnit.COMMA);
+		rule.addVar(EnumVariable.FactVarList);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.FactVarList;
+		rule.addVar(EnumVariable.VarList);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.FactVarList;
+		rule.initRightSide();
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Code;
+		rule.addVar(EnumVariable.Instruction);
+		rule.addTkn(LexicalUnit.ENDLINE);
+		rule.addVar(EnumVariable.Code);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Code;
+		rule.initRightSide();
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Instruction;
+		rule.addVar(EnumVariable.Assign);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Instruction;
+		rule.addVar(EnumVariable.If);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Instruction;
+		rule.addVar(EnumVariable.Do);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Instruction;
+		rule.addVar(EnumVariable.Print);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Instruction;
+		rule.addVar(EnumVariable.Read);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Assign;
+		rule.addTkn(LexicalUnit.VARNAME);
+		rule.addTkn(LexicalUnit.EQUAL);
 		rules.add(rule);
 	}
 	
