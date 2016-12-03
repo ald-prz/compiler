@@ -4,9 +4,35 @@ import java.util.*;
 public class Parser {
 
 	protected int[][] actionTable;
+	protected ArrayList<Rule> rules;
 	
 	public void parse(List<Symbol> symbol)
 	{		
+		initializeActionTable();
+		initializeRules();
+		
+		
+	}
+	
+	protected void initializeRules()
+	{
+		ArrayList<Rule> rules = new ArrayList<Rule>();
+		
+		Rule rule = new Rule();
+		rule.left = EnumVariable.All;
+		rule.addVar(EnumVariable.Program);
+		rule.addTkn(null);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.All;
+		rule.addTkn(LexicalUnit.PROGRAM);
+		rule.addTkn(LexicalUnit.VARNAME);
+		rules.add(rule);
+	}
+	
+	protected void initializeActionTable()
+	{
 		actionTable = new int[EnumVariable.values().length][LexicalUnit.values().length];
 		
 		for (int i = 0; i < actionTable.length; i++)
@@ -127,7 +153,6 @@ public class Parser {
 		addToActionTable(EnumVariable.FactExprArith, LexicalUnit.COMMA, 51);
 		addToActionTable(EnumVariable.FactExprArith, LexicalUnit.ENDLINE, 52);
 	}
-	
 	
 	protected void addToActionTable(EnumVariable variable, LexicalUnit unit, int rule)
 	{
