@@ -3,7 +3,7 @@ public enum EnumVariable {
 	All,
 	Program,
 	Vars,
-	Varlist,
+	VarList,
 	FactVarList,
 	Code,
 	Instruction,
