@@ -472,7 +472,7 @@ public class Parser {
 		addToActionTable(EnumVariable.RecArithT, LexicalUnit.DIVIDE, 23);
 		addToActionTable(EnumVariable.RecArithT, LexicalUnit.AND, 24);
 		addToActionTable(EnumVariable.RecArithT, LexicalUnit.OR, 24);
-		addToActionTable(EnumVariable.RecArithT, LexicalUnit.EQUAL_COMPARE, 41);
+		addToActionTable(EnumVariable.RecArithT, LexicalUnit.EQUAL_COMPARE, 24);
 		addToActionTable(EnumVariable.RecArithT, LexicalUnit.GREATER_EQUAL, 24);
 		addToActionTable(EnumVariable.RecArithT, LexicalUnit.GREATER, 24);
 		addToActionTable(EnumVariable.RecArithT, LexicalUnit.SMALLER_EQUAL, 24);
