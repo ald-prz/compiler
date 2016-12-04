@@ -1,0 +1,17 @@
+program comprehensivetest
+
+integer alpha, bravo
+
+alpha = 4
+
+bravo = --2*(-5)+-alpha/3
+
+if (.NOT. alpha .eQ. 4 .AND. .NOT. bravo .eq. 3 .or. alpha .ne. 2) then
+   do i = 1, 5
+      pRINT*, 1, 2, 3
+   enddo
+else
+	alpha = 2
+	read*, bravo
+endif
+end
