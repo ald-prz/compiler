@@ -6,15 +6,29 @@ public class Parser {
 	protected int[][] actionTable;
 	protected ArrayList<Rule> rules;
 	protected int lastRuleNumber = 0;
+	protected Stack stack;
 	
 	public void parse(ArrayList<Symbol> symbol)
 	{		
 		initializeActionTable();
 		initializeRules();
-		
-		Stack stack = new Stack();
-		stack.push(new ElementVariable(EnumVariable.All));		
-		
+		initializeStack();	
+		makeLeftmostDerivation(symbol);
+	}
+	
+	protected void writeRule(int rule)
+	{
+		System.out.print("[" + String.valueOf(rule) + "]");
+		System.out.println(rules.get(rule).toString());
+	}
+	
+	protected void raiseError(int rule)
+	{
+		System.out.println("A syntax error occurs at rule [" + rule + "]");
+	}
+
+	protected void makeLeftmostDerivation(ArrayList<Symbol> symbol)
+	{
 		while (true)
 		{
 			Element element = (Element) stack.pop();
@@ -28,19 +42,7 @@ public class Parser {
 				if (rule != -1)
 				{
 					writeRule(rule);
-					
-					for (int i = rules.get(rule).right.size() - 1; i >= 0; i--)
-					{
-						Element newElement;
-						
-						if (rules.get(rule).right.get(i) instanceof ElementToken)
-							newElement = new ElementToken((ElementToken)rules.get(rule).right.get(i));
-						else
-							newElement = new ElementVariable((ElementVariable)rules.get(rule).right.get(i));
-							
-						stack.push(newElement);
-						newElement.derivedFromRule = rule;
-					}
+					addRightSideToStack(rule);	
 				}
 				else
 				{
@@ -76,17 +78,28 @@ public class Parser {
 		}
 	}
 	
-	protected void writeRule(int rule)
+	protected void addRightSideToStack(int rule)
 	{
-		System.out.print("[" + String.valueOf(rule) + "]");
-		System.out.println(rules.get(rule).toString());
+		for (int i = rules.get(rule).right.size() - 1; i >= 0; i--)
+		{
+			Element newElement;
+			
+			if (rules.get(rule).right.get(i) instanceof ElementToken)
+				newElement = new ElementToken((ElementToken)rules.get(rule).right.get(i));
+			else
+				newElement = new ElementVariable((ElementVariable)rules.get(rule).right.get(i));
+				
+			stack.push(newElement);
+			newElement.derivedFromRule = rule;
+		}
 	}
 	
-	protected void raiseError(int rule)
+	protected void initializeStack()
 	{
-		System.out.println("A syntax error occurs at rule [" + rule + "]");
+		stack = new Stack();
+		stack.push(new ElementVariable(EnumVariable.All));	
 	}
-
+	
 	protected void initializeRules()
 	{
 		rules = new ArrayList<Rule>();
