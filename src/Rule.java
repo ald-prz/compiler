@@ -29,4 +29,25 @@ public class Rule {
 		if (this.right == null)
 			this.right = new ArrayList();
 	}
+	
+	
+    @Override
+    public String toString(){
+        String s;
+        
+        s = "<" + left.toString() + "> --> ";
+        
+        for (int i = 0; i < right.size(); i++)
+        {
+        	if (right.get(i) instanceof ElementToken)
+        		s += ((ElementToken) right.get(i)).toString();
+        	else
+        		s += "<" + ((ElementVariable) right.get(i)).toString() + ">";
+        	
+        	s += " ";
+        }
+        	
+        
+        return s;
+    }
 }

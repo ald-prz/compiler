@@ -142,6 +142,7 @@ public class Parser {
 		rule.left = EnumVariable.Assign;
 		rule.addTkn(LexicalUnit.VARNAME);
 		rule.addTkn(LexicalUnit.EQUAL);
+		rule.addVar(EnumVariable.ExprArith);
 		rules.add(rule);
 		
 		rule = new Rule();
@@ -348,8 +349,16 @@ public class Parser {
 		
 		rule = new Rule();
 		rule.left = EnumVariable.Print;
+		rule.addTkn(LexicalUnit.PRINT);
 		rule.addTkn(LexicalUnit.COMMA);
 		rule.addVar(EnumVariable.ExpList);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Read;
+		rule.addTkn(LexicalUnit.READ);
+		rule.addTkn(LexicalUnit.COMMA);
+		rule.addVar(EnumVariable.VarList);
 		rules.add(rule);
 		
 		rule = new Rule();
