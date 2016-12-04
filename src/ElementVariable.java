@@ -12,6 +12,12 @@ public class ElementVariable extends Element {
 		this.variable = variable;
 	}
 	
+	public ElementVariable(ElementVariable variable)
+	{
+		super(variable);
+		this.variable = variable.variable;
+	}
+	
 	@Override
     public String toString(){
         return variable.toString();

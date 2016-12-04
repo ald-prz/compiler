@@ -6,14 +6,17 @@ public class ElementToken extends Element {
 	protected Symbol symbol;
 	protected Boolean isEndingToken;
 	
-	public Boolean getIsEndingToken() {
-		return isEndingToken;
+	public ElementToken(LexicalUnit unit)
+	{
+		if (unit != null)
+		{
+			this.symbol = new Symbol(unit, 0, 0, null);
+			this.isEndingToken = false;
+		}
+		else
+			this.isEndingToken = true;
 	}
-
-	public Symbol getSymbol() {
-		return symbol;
-	}
-
+	
 	public ElementToken(Symbol symbol)
 	{
 		if (symbol.getType() != null)
@@ -25,15 +28,19 @@ public class ElementToken extends Element {
 			this.isEndingToken = true;
 	}
 	
-	public ElementToken(LexicalUnit unit)
+	public ElementToken(ElementToken token)
 	{
-		if (unit != null)
-		{
-			this.symbol = new Symbol(unit, 0, 0, null);
-			this.isEndingToken = false;
-		}
-		else
-			this.isEndingToken = true;
+		super(token);
+		this.symbol = token.symbol;
+		this.isEndingToken = token.isEndingToken;
+	}
+	
+	public Boolean getIsEndingToken() {
+		return isEndingToken;
+	}
+
+	public Symbol getSymbol() {
+		return symbol;
 	}
 	
 	@Override

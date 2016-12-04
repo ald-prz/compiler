@@ -30,11 +30,21 @@ public class Parser {
 					writeRule(rule);
 					
 					for (int i = rules.get(rule).right.size() - 1; i >= 0; i--)
-						stack.push(rules.get(rule).right.get(i));
+					{
+						Element newElement;
+						
+						if (rules.get(rule).right.get(i) instanceof ElementToken)
+							newElement = new ElementToken((ElementToken)rules.get(rule).right.get(i));
+						else
+							newElement = new ElementVariable((ElementVariable)rules.get(rule).right.get(i));
+							
+						stack.push(newElement);
+						newElement.derivedFromRule = rule;
+					}
 				}
 				else
 				{
-					raiseError();
+					raiseError(element.derivedFromRule);
 					return;
 				}
 				
@@ -53,13 +63,13 @@ public class Parser {
 						symbol.remove(0);
 					else
 					{
-						raiseError();
+						raiseError(element.derivedFromRule);
 						return;
 					}
 				}
 				else
 				{
-					raiseError();
+					raiseError(element.derivedFromRule);
 					return;
 				}
 			}
@@ -72,9 +82,9 @@ public class Parser {
 		System.out.println(rules.get(rule).toString());
 	}
 	
-	protected void raiseError()
+	protected void raiseError(int rule)
 	{
-		System.out.println("A syntax error occurs at rule [" + lastRuleNumber + "]");
+		System.out.println("A syntax error occurs at rule [" + rule + "]");
 	}
 
 	protected void initializeRules()
