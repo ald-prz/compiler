@@ -35,7 +35,7 @@ public class Parser {
 	 */
 	protected void writeRule(int rule)
 	{
-		System.out.print("[" + String.valueOf(rule) + "]");
+		System.out.print("[" + String.valueOf(rule) + "] ");
 		System.out.println(rules.get(rule).toString());
 	}
 	
@@ -54,6 +54,8 @@ public class Parser {
 	 */
 	protected void makeLeftmostDerivation(ArrayList<Symbol> symbol)
 	{
+		System.out.println();
+		
 		while (true)
 		{
 			Element element = (Element) stack.pop();
@@ -289,7 +291,7 @@ public class Parser {
 		rule = new Rule();
 		rule.left = EnumVariable.ArithF;
 		rule.addTkn(LexicalUnit.LEFT_PARENTHESIS);
-		rule.addTkn(LexicalUnit.VARNAME);
+		rule.addVar(EnumVariable.ExprArith);
 		rule.addTkn(LexicalUnit.RIGHT_PARENTHESIS);
 		rules.add(rule);
 		
