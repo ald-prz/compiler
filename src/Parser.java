@@ -5,6 +5,7 @@ public class Parser {
 
 	protected int[][] actionTable;
 	protected ArrayList<Rule> rules;
+	protected int lastRuleNumber = 0;
 	
 	public void parse(ArrayList<Symbol> symbol)
 	{		
@@ -12,7 +13,7 @@ public class Parser {
 		initializeRules();
 		
 		Stack stack = new Stack();
-		stack.push(new ElementVariable(EnumVariable.All));
+		stack.push(new ElementVariable(EnumVariable.All));		
 		
 		while (true)
 		{
@@ -26,32 +27,56 @@ public class Parser {
 				
 				if (rule != -1)
 				{
+					writeRule(rule);
+					
 					for (int i = rules.get(rule).right.size() - 1; i >= 0; i--)
 						stack.push(rules.get(rule).right.get(i));
 				}
 				else
 				{
-					
+					raiseError();
+					return;
 				}
 				
-				int remove = -1;
+				lastRuleNumber = rule;
 			}
 			else
 			{
 				ElementToken token = (ElementToken) element;
 				
-				if (token.getSymbol().getType() == symbol.get(0).getType())
-				{
-					symbol.remove(0);
+				if ((token.getIsEndingToken() == true) && (symbol.size() == 0))
+					return; // success;
+				
+				if (symbol.size() != 0)
+				{	
+					if (token.getSymbol().getType() == symbol.get(0).getType())
+						symbol.remove(0);
+					else
+					{
+						raiseError();
+						return;
+					}
 				}
 				else
 				{
-					
+					raiseError();
+					return;
 				}
 			}
 		}
 	}
 	
+	protected void writeRule(int rule)
+	{
+		System.out.print("[" + String.valueOf(rule) + "]");
+		System.out.println(rules.get(rule).toString());
+	}
+	
+	protected void raiseError()
+	{
+		System.out.println("A syntax error occurs at rule [" + lastRuleNumber + "]");
+	}
+
 	protected void initializeRules()
 	{
 		rules = new ArrayList<Rule>();
@@ -87,12 +112,12 @@ public class Parser {
 		rule = new Rule();
 		rule.left = EnumVariable.VarList;
 		rule.addTkn(LexicalUnit.VARNAME);
-		rule.addTkn(LexicalUnit.COMMA);
 		rule.addVar(EnumVariable.FactVarList);
 		rules.add(rule);
 		
 		rule = new Rule();
 		rule.left = EnumVariable.FactVarList;
+		rule.addTkn(LexicalUnit.COMMA);
 		rule.addVar(EnumVariable.VarList);
 		rules.add(rule);
 		
@@ -228,7 +253,7 @@ public class Parser {
 		rule.left = EnumVariable.If;
 		rule.addTkn(LexicalUnit.IF);
 		rule.addTkn(LexicalUnit.LEFT_PARENTHESIS);
-		rule.addVar(EnumVariable.ArithF);
+		rule.addVar(EnumVariable.Cond);
 		rule.addTkn(LexicalUnit.RIGHT_PARENTHESIS);
 		rule.addTkn(LexicalUnit.THEN);
 		rule.addTkn(LexicalUnit.ENDLINE);
@@ -397,7 +422,7 @@ public class Parser {
 		addToActionTable(EnumVariable.Vars, LexicalUnit.PRINT, 3);
 		addToActionTable(EnumVariable.Vars, LexicalUnit.READ, 3);
 		addToActionTable(EnumVariable.VarList, LexicalUnit.VARNAME, 4);
-		addToActionTable(EnumVariable.FactVarList, LexicalUnit.VARNAME, 5);
+		addToActionTable(EnumVariable.FactVarList, LexicalUnit.COMMA, 5);
 		addToActionTable(EnumVariable.FactVarList, LexicalUnit.ENDLINE, 6);
 		addToActionTable(EnumVariable.Code, LexicalUnit.VARNAME, 7);
 		addToActionTable(EnumVariable.Code, LexicalUnit.END, 8);
@@ -486,11 +511,11 @@ public class Parser {
 		addToActionTable(EnumVariable.CondF, LexicalUnit.LEFT_PARENTHESIS, 40);
 		addToActionTable(EnumVariable.CondF, LexicalUnit.MINUS, 40);
 		addToActionTable(EnumVariable.Comp, LexicalUnit.EQUAL_COMPARE, 41);
-		addToActionTable(EnumVariable.CondF, LexicalUnit.GREATER_EQUAL, 42);
-		addToActionTable(EnumVariable.CondF, LexicalUnit.GREATER, 43);
-		addToActionTable(EnumVariable.CondF, LexicalUnit.SMALLER_EQUAL, 44);
-		addToActionTable(EnumVariable.CondF, LexicalUnit.SMALLER, 45);
-		addToActionTable(EnumVariable.CondF, LexicalUnit.DIFFERENT, 46);
+		addToActionTable(EnumVariable.Comp, LexicalUnit.GREATER_EQUAL, 42);
+		addToActionTable(EnumVariable.Comp, LexicalUnit.GREATER, 43);
+		addToActionTable(EnumVariable.Comp, LexicalUnit.SMALLER_EQUAL, 44);
+		addToActionTable(EnumVariable.Comp, LexicalUnit.SMALLER, 45);
+		addToActionTable(EnumVariable.Comp, LexicalUnit.DIFFERENT, 46);
 		addToActionTable(EnumVariable.Do, LexicalUnit.DO, 47);
 		addToActionTable(EnumVariable.Print, LexicalUnit.PRINT, 48);
 		addToActionTable(EnumVariable.Read, LexicalUnit.READ, 49);

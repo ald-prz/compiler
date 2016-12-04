@@ -34,7 +34,7 @@ public class Preprocessor {
 
 		symbols.add(s);
 
-		System.out.println(s.toString());
+		//System.out.println(s.toString());
 
 		return s;
 	}
@@ -65,7 +65,7 @@ public class Preprocessor {
 	 * Outputs the list of identifiers and the line where they were found.
 	 */
 	public void parse() {
-		outputTokens();
+		//outputTokens();
 		
 		Parser parser = new Parser();
 		
