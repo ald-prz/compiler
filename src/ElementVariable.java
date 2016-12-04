@@ -1,4 +1,8 @@
 
+
+/**
+ * Variable element to be put in the stack.
+ */
 public class ElementVariable extends Element {
 
 	protected EnumVariable variable;

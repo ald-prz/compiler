@@ -1,6 +1,8 @@
 
 
-// a terminal symbol element of stack (Symbol wrapper)
+/**
+ * Token element to be put in the stack
+ */
 public class ElementToken extends Element {
 
 	protected Symbol symbol;

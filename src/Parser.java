@@ -3,11 +3,25 @@ import java.util.*;
 
 public class Parser {
 
+	/**
+	 * Action table represented by a matrix (-1 value in table means no applicable rule)
+	 */
 	protected int[][] actionTable;
+	
+	/**
+	 * Rules which are available in the grammar
+	 */
 	protected ArrayList<Rule> rules;
-	protected int lastRuleNumber = 0;
+	
+	/**
+	 * Stack which is used for derivation
+	 */
 	protected Stack stack;
 	
+	/**
+	 * Parses a list of symbols according to the predefined grammar
+	 * @param symbol the list of input symbols
+	 */
 	public void parse(ArrayList<Symbol> symbol)
 	{		
 		initializeActionTable();
@@ -15,18 +29,29 @@ public class Parser {
 		initializeStack();	
 		makeLeftmostDerivation(symbol);
 	}
-	
+	/**
+	 * Outputs the rule to console
+	 * @param rule the rule to output
+	 */
 	protected void writeRule(int rule)
 	{
 		System.out.print("[" + String.valueOf(rule) + "]");
 		System.out.println(rules.get(rule).toString());
 	}
 	
+	/**
+	 * Outputs error message with the number of the rule
+	 * @param rule number of the rule
+	 */
 	protected void raiseError(int rule)
 	{
 		System.out.println("A syntax error occurs at rule [" + rule + "]");
 	}
 
+	/**
+	 * Makes leftmost derivation using input list and stack and the specified grammar upon accept or error state
+	 * @param symbol list of input symbols
+	 */
 	protected void makeLeftmostDerivation(ArrayList<Symbol> symbol)
 	{
 		while (true)
@@ -49,8 +74,6 @@ public class Parser {
 					raiseError(element.derivedFromRule);
 					return;
 				}
-				
-				lastRuleNumber = rule;
 			}
 			else
 			{
@@ -78,6 +101,10 @@ public class Parser {
 		}
 	}
 	
+	/**
+	 * Copies the right part of the rule to the top of the stack
+	 * @param rule number of the specified rule
+	 */
 	protected void addRightSideToStack(int rule)
 	{
 		for (int i = rules.get(rule).right.size() - 1; i >= 0; i--)
@@ -550,6 +577,12 @@ public class Parser {
 		addToActionTable(EnumVariable.FactExprArith, LexicalUnit.ENDLINE, 52);
 	}
 	
+	/**
+	 * Initializes a cell in action table with given parameters
+	 * @param variable row
+	 * @param unit column
+	 * @param rule assigning value
+	 */
 	protected void addToActionTable(EnumVariable variable, LexicalUnit unit, int rule)
 	{
 		actionTable[variable.ordinal()][unit.ordinal()] = rule;

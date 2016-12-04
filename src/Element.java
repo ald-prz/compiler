@@ -1,4 +1,7 @@
 
+/**
+ * Element to be put in the stack. Can be Token or variable
+ */
 public abstract class Element {
 
 	public Element()
@@ -10,6 +13,9 @@ public abstract class Element {
 		this.derivedFromRule = element.derivedFromRule;		
 	}
 	
-	public int derivedFromRule; // to return error rule number
+	/**
+	 * Number of the rule which has derived this element. Used to output the number of erroneous rule
+	 */
+	public int derivedFromRule; 
 	
 }

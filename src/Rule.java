@@ -2,7 +2,14 @@ import java.util.*;
 
 public class Rule {
 	
-	public EnumVariable left;  // sorry for not using get and set, no time
+	/**
+	 * Left part of the rule
+	 */
+	public EnumVariable left;
+	
+	/**
+	 * Right part of the rule
+	 */
 	public ArrayList<Element> right;
 
 	/*
