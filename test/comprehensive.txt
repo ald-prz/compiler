@@ -2,9 +2,9 @@ program comprehensivetest
 
 
 
-if (.NOT. alpha1 .eQ. 3) tHEN
+if (.NOT. alpha1 .eQ. 4) then
    do i = 1, 5
       pRINT*, 1, 2, 3
-   
-
+   enddo
+endif
 end
