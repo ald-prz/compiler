@@ -38,7 +38,16 @@ public class Parser {
 			}
 			else
 			{
+				ElementToken token = (ElementToken) element;
 				
+				if (token.getSymbol().getType() == symbol.get(0).getType())
+				{
+					symbol.remove(0);
+				}
+				else
+				{
+					
+				}
 			}
 		}
 	}
@@ -133,6 +142,231 @@ public class Parser {
 		rule.left = EnumVariable.Assign;
 		rule.addTkn(LexicalUnit.VARNAME);
 		rule.addTkn(LexicalUnit.EQUAL);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Op1;
+		rule.addTkn(LexicalUnit.PLUS);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Op1;
+		rule.addTkn(LexicalUnit.MINUS);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Op2;
+		rule.addTkn(LexicalUnit.TIMES);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Op2;
+		rule.addTkn(LexicalUnit.DIVIDE);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.ExprArith;
+		rule.addVar(EnumVariable.ArithT);
+		rule.addVar(EnumVariable.RecArithE);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.RecArithE;
+		rule.addVar(EnumVariable.Op1);
+		rule.addVar(EnumVariable.ArithT);
+		rule.addVar(EnumVariable.RecArithE);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.RecArithE;
+		rule.initRightSide();
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.ArithT;
+		rule.addVar(EnumVariable.ArithF);
+		rule.addVar(EnumVariable.RecArithT);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.RecArithT;
+		rule.addVar(EnumVariable.Op2);
+		rule.addVar(EnumVariable.ArithF);
+		rule.addVar(EnumVariable.RecArithT);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.RecArithT;
+		rule.initRightSide();
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.ArithF;
+		rule.addTkn(LexicalUnit.VARNAME);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.ArithF;
+		rule.addTkn(LexicalUnit.NUMBER);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.ArithF;
+		rule.addTkn(LexicalUnit.LEFT_PARENTHESIS);
+		rule.addTkn(LexicalUnit.VARNAME);
+		rule.addTkn(LexicalUnit.RIGHT_PARENTHESIS);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.ArithF;
+		rule.addTkn(LexicalUnit.MINUS);
+		rule.addVar(EnumVariable.ArithF);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.If;
+		rule.addTkn(LexicalUnit.IF);
+		rule.addTkn(LexicalUnit.LEFT_PARENTHESIS);
+		rule.addVar(EnumVariable.ArithF);
+		rule.addTkn(LexicalUnit.RIGHT_PARENTHESIS);
+		rule.addTkn(LexicalUnit.THEN);
+		rule.addTkn(LexicalUnit.ENDLINE);
+		rule.addVar(EnumVariable.Code);
+		rule.addVar(EnumVariable.FactIf);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.FactIf;
+		rule.addTkn(LexicalUnit.ENDIF);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.FactIf;
+		rule.addTkn(LexicalUnit.ELSE);
+		rule.addTkn(LexicalUnit.ENDLINE);
+		rule.addVar(EnumVariable.Code);
+		rule.addTkn(LexicalUnit.ENDIF);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.CondPrefix;
+		rule.addTkn(LexicalUnit.NOT);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.CondPrefix;
+		rule.initRightSide();
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Cond;
+		rule.addVar(EnumVariable.CondT);
+		rule.addVar(EnumVariable.CondRecE);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.CondRecE;
+		rule.addTkn(LexicalUnit.OR);
+		rule.addVar(EnumVariable.CondT);
+		rule.addVar(EnumVariable.CondRecE);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.CondRecE;
+		rule.initRightSide();
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.CondT;
+		rule.addVar(EnumVariable.CondPrefix);
+		rule.addVar(EnumVariable.CondF);
+		rule.addVar(EnumVariable.CondRecT);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.CondRecT;
+		rule.addTkn(LexicalUnit.AND);
+		rule.addVar(EnumVariable.CondPrefix);
+		rule.addVar(EnumVariable.CondF);
+		rule.addVar(EnumVariable.CondRecT);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.CondRecT;
+		rule.initRightSide();
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.CondF;
+		rule.addVar(EnumVariable.ExprArith);
+		rule.addVar(EnumVariable.Comp);
+		rule.addVar(EnumVariable.ExprArith);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Comp;
+		rule.addTkn(LexicalUnit.EQUAL_COMPARE);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Comp;
+		rule.addTkn(LexicalUnit.GREATER_EQUAL);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Comp;
+		rule.addTkn(LexicalUnit.GREATER);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Comp;
+		rule.addTkn(LexicalUnit.SMALLER_EQUAL);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Comp;
+		rule.addTkn(LexicalUnit.SMALLER);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Comp;
+		rule.addTkn(LexicalUnit.DIFFERENT);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Do;
+		rule.addTkn(LexicalUnit.DO);
+		rule.addTkn(LexicalUnit.VARNAME);
+		rule.addTkn(LexicalUnit.EQUAL);
+		rule.addTkn(LexicalUnit.NUMBER);
+		rule.addTkn(LexicalUnit.COMMA);
+		rule.addTkn(LexicalUnit.NUMBER);
+		rule.addTkn(LexicalUnit.ENDLINE);
+		rule.addVar(EnumVariable.Code);
+		rule.addTkn(LexicalUnit.ENDDO);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.Print;
+		rule.addTkn(LexicalUnit.COMMA);
+		rule.addVar(EnumVariable.ExpList);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.ExpList;
+		rule.addVar(EnumVariable.ExprArith);
+		rule.addVar(EnumVariable.FactExprArith);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.FactExprArith;
+		rule.addTkn(LexicalUnit.COMMA);
+		rule.addVar(EnumVariable.ExpList);
+		rules.add(rule);
+		
+		rule = new Rule();
+		rule.left = EnumVariable.FactExprArith;
+		rule.initRightSide();
 		rules.add(rule);
 	}
 	
